@@ -4,6 +4,7 @@ import os
 from sklearn.model_selection import train_test_split
 import yaml
 import logging
+from pathlib import Path
 
 # Logging configuration
 logger = logging.getLogger('data_ingestion')
@@ -91,7 +92,12 @@ def save_data(train_data: pd.DataFrame, test_data: pd.DataFrame, data_path: str)
 def main():
     try:
         # Load parameters from the params.yaml in the root directory
-        params = load_params(params_path=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../params.yaml'))
+        
+
+
+
+
+        params = load_params(params_path = Path(__file__).resolve().parents[2] / "params.yaml")
         test_size = params['data_ingestion']['test_size']
         
         # Load data from the specified URL
