@@ -13,6 +13,17 @@ import seaborn as sns
 import json
 from mlflow.models import infer_signature
 
+def flatten_dict(d, parent_key='', sep='_'):
+    items = []
+    for k, v in d.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+
 # logging configuration
 logger = logging.getLogger('model_evaluation')
 logger.setLevel('DEBUG')
@@ -144,9 +155,12 @@ def main():
             root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'))
             params = load_params(os.path.join(root_dir, 'params.yaml'))
 
-            # Log parameters
-            for key, value in params.items():
+
+            # Flatten and log parameters
+            flat_params = flatten_dict(params)
+            for key, value in flat_params.items():
                 mlflow.log_param(key, value)
+
             
             # Load model and vectorizer
             model = load_model(os.path.join(root_dir, 'lgbm_model.pkl'))
