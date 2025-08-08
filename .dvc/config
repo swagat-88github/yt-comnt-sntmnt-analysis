@@ -1,4 +1,4 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = C:\Users\ss25411\AppData\Local\Temp
+    url = s3://comnt-dvc-analysis
