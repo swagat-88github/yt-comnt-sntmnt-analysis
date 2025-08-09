@@ -180,12 +180,14 @@ def main():
             signature = infer_signature(input_example, model.predict(X_test_tfidf[:5]))  # <--- Added for signature
 
             # Log model with signature
+          
             mlflow.sklearn.log_model(
-                model,
-                "lgbm_model",
-                signature=signature,  # <--- Added for signature
-                input_example=input_example  # <--- Added input example
+                sk_model=model,
+                name="lgbm_model",
+                signature=signature,
+                input_example=input_example
             )
+
 
             # Save model info
             model_path = "lgbm_model"
