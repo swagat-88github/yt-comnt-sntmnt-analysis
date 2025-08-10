@@ -30,7 +30,7 @@ jobs:
       - name: Run pipeline
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643  }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           AWS_DEFAULT_REGION: ap-south-1 # Replace with your AWS region
         run: |
           dvc repro
@@ -38,7 +38,7 @@ jobs:
       - name: Push DVC-tracked data to remote
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           AWS_DEFAULT_REGION: ap-south-1
 
     # Replace with your AWS region
@@ -73,7 +73,7 @@ jobs:
       - name: Run model loading test
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           AWS_DEFAULT_REGION: ap-south-1
 
         run: |
@@ -82,7 +82,7 @@ jobs:
       - name: Run model signature test
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           AWS_DEFAULT_REGION: ap-south-1
 
         run: |
@@ -91,7 +91,7 @@ jobs:
       - name: Run model performance test
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ap-south-1
 
         run: |
@@ -101,7 +101,7 @@ jobs:
         if: success()
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           AWS_DEFAULT_REGION: ap-south-1
 
         run: python scripts/promote_model.py
@@ -111,7 +111,7 @@ jobs:
         if: success()
         run: |
           aws configure set aws_access_key_id ${{ secrets.AKIAUQYOVXMXJSCKE643  }}
-          aws configure set aws_secret_access_key ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 390844758498.dkr.ecr.us-east-1.amazonaws.com
 
       - name: Build Docker image
@@ -146,7 +146,7 @@ jobs:
         if: success()
         run: |
           aws configure set aws_access_key_id ${{ secrets.AKIAUQYOVXMXJSCKE643   }}
-          aws configure set aws_secret_access_key ${{ secrets.ct1RKcQv23mp/7Bl3MkB3Bx7BKWRGug1Ns5sMPyl }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
           aws deploy create-deployment \
             --application-name YTChromePlugin \
             --deployment-config-name CodeDeployDefault.OneAtATime \
